@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { memo } from 'react';
 
 import ListItem from '../ListItem';
@@ -6,10 +7,13 @@ import ListItem from '../ListItem';
 const BROWSER_ASSISTANT_ID = 'browser-assistant';
 
 const BrowserAssistant = memo(() => {
+  const pathname = usePathname();
+  const isActive = pathname.includes('/browser-assistant');
+
   return (
-    <Link aria-label="AI Browser" href="/browser-assistant">
+    <Link aria-label="AI Browser" href="/chat/browser-assistant">
       <ListItem
-        active={false}
+        active={isActive}
         avatar="🤖"
         key={BROWSER_ASSISTANT_ID}
         styles={{

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,9 +16,14 @@ import ListItem from '../ListItem';
 
 const Inbox = memo(() => {
   const { t } = useTranslation('chat');
+  const pathname = usePathname();
   const mobile = useServerConfigStore((s) => s.isMobile);
   const activeId = useSessionStore((s) => s.activeId);
   const switchSession = useSwitchSession();
+
+  // Don't show as active if we're on the browser-assistant page
+  const isBrowserAssistant = pathname.includes('/browser-assistant');
+  const isActive = activeId === INBOX_SESSION_ID && !isBrowserAssistant;
 
   const openNewTopicOrSaveTopic = useChatStore((s) => s.openNewTopicOrSaveTopic);
 
@@ -42,7 +48,7 @@ const Inbox = memo(() => {
       }}
     >
       <ListItem
-        active={activeId === INBOX_SESSION_ID}
+        active={isActive}
         avatar={DEFAULT_INBOX_AVATAR}
         key={INBOX_SESSION_ID}
         styles={{
