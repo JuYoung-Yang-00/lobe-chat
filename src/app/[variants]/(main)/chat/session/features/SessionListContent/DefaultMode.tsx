@@ -17,6 +17,7 @@ import {
   SessionDefaultGroup,
 } from '@/types/session';
 
+import BrowserAssistant from './BrowserAssistant';
 import CollapseGroup from './CollapseGroup';
 import Actions from './CollapseGroup/Actions';
 import Inbox from './Inbox';
@@ -105,6 +106,7 @@ const DefaultMode = memo(() => {
   return (
     <>
       <Inbox />
+      <BrowserAssistant />
       <CollapseGroup
         activeKey={sessionGroupKeys}
         items={items}
