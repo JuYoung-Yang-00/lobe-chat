@@ -7,7 +7,7 @@ import { Flexbox } from 'react-layout-kit';
 const useStyles = createStyles(({ css, token }) => ({
   container: css`
     background: ${token.colorBgContainer};
-    border-left: 1px solid ${token.colorBorderSecondary};
+    border-right: 1px solid ${token.colorBorderSecondary};
   `,
   content: css`
     padding: 16px;
@@ -30,11 +30,11 @@ interface BrowserPanelProps {
   mobile?: boolean;
 }
 
-const BrowserPanel = memo<BrowserPanelProps>(({ mobile }) => {
+const BrowserPanel = memo<BrowserPanelProps>(() => {
   const { styles } = useStyles();
 
   return (
-    <Flexbox className={styles.container} height="100%" width={mobile ? '100%' : 400}>
+    <Flexbox className={styles.container} height="100%" width="100%">
       <div className={styles.header}>Browser Automation</div>
       <Flexbox className={styles.content} flex={1}>
         <div className={styles.placeholder}>

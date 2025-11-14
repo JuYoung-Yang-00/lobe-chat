@@ -1,59 +1,45 @@
-import { createStyles } from 'antd-style';
 import { memo } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import MobileContentLayout from '@/components/server/MobileNavLayout';
 
-import BrowserConversationArea from './BrowserConversationArea';
+import ConversationArea from '../../components/ConversationArea';
 import BrowserPanel from './BrowserPanel';
-
-const useStyles = createStyles(({ css, token }) => ({
-  header: css`
-    padding: 12px 16px;
-    border-bottom: 1px solid ${token.colorBorderSecondary};
-    font-weight: 600;
-    font-size: 16px;
-    background: ${token.colorBgContainer};
-  `,
-}));
 
 interface WorkspaceLayoutProps {
   mobile?: boolean;
 }
 
 const DesktopWorkspace = memo(() => {
-  const { styles } = useStyles();
-
   return (
-    <>
-      <div className={styles.header}>Browser Assistant</div>
-      <Flexbox
-        height={'calc(100% - 49px)'}
-        horizontal
-        style={{ overflow: 'hidden', position: 'relative' }}
-        width={'100%'}
-      >
-        <Flexbox height={'100%'} style={{ overflow: 'hidden', position: 'relative' }} width={'100%'}>
-          <BrowserConversationArea mobile={false} />
-        </Flexbox>
+    <Flexbox
+      height={'calc(100% - 49px)'}
+      horizontal
+      style={{ overflow: 'hidden', position: 'relative' }}
+      width={'100%'}
+    >
+      <Flexbox flex={1} height={'100%'} style={{ overflow: 'hidden', position: 'relative' }}>
         <BrowserPanel mobile={false} />
       </Flexbox>
-    </>
+      <Flexbox height={'100%'} style={{ overflow: 'hidden', position: 'relative' }} width={400}>
+        <ConversationArea mobile={false} />
+      </Flexbox>
+    </Flexbox>
   );
 });
 
 DesktopWorkspace.displayName = 'DesktopWorkspace';
 
 const MobileWorkspace = memo(() => {
-  const { styles } = useStyles();
+  // const { styles } = useStyles();
 
   return (
-    <MobileContentLayout header={<div className={styles.header}>Browser Assistant</div>}>
+    <MobileContentLayout>
       <Flexbox height={'100%'} style={{ overflow: 'hidden' }} width={'100%'}>
-        <Flexbox flex={1} style={{ overflow: 'hidden' }}>
-          <BrowserConversationArea mobile />
-        </Flexbox>
         <BrowserPanel mobile />
+        <Flexbox flex={1} style={{ overflow: 'hidden' }}>
+          <ConversationArea mobile />
+        </Flexbox>
       </Flexbox>
     </MobileContentLayout>
   );
